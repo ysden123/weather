@@ -1,0 +1,14 @@
+{
+  "cities": [
+    {
+      "name": "TA",
+      "latitude": 123.4,
+      "longitude": 456.7
+    },
+    {
+      "name": "BU",
+      "latitude": 55.4,
+      "longitude": 33.7
+    }
+  ]
+}
