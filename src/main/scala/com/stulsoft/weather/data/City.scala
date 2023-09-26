@@ -6,4 +6,4 @@ package com.stulsoft.weather.data
 
 import upickle.default.*
 
-case class City(name: String, latitude: Double, longitude: Double)derives ReadWriter
+case class City(var name: String, var latitude: Double, var longitude: Double)derives ReadWriter

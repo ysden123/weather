@@ -6,11 +6,15 @@ ThisBuild / organizationName := "stulsoft"
 lazy val root = (project in file("."))
   .settings(
     name := "weather",
+    libraryDependencies += "com.stulsoft" %% "common" % "latest.integration",
     libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
     libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.7",
 
     // toolkit
     libraryDependencies += "org.scala-lang" %% "toolkit" % "0.2.0",
+
+    // Swing
+    libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % Test,
 
