@@ -1,3 +1,5 @@
+import java.util.Calendar
+
 ThisBuild / scalaVersion := "3.3.1"
 ThisBuild / version := "0.0.1"
 ThisBuild / organization := "com.stulsoft"
@@ -27,3 +29,7 @@ lazy val root = (project in file("."))
     ),
     scalacOptions ++= Seq("-Xmax-inlines", "50")
   )
+  .enablePlugins(JavaAppPackaging)
+
+Compile / packageBin / packageOptions += Package.ManifestAttributes("Build-Date" -> Calendar.getInstance().getTime.toString)
+Compile / mainClass := Some("com.stulsoft.weather.Main")

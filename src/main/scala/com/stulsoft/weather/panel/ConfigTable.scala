@@ -18,11 +18,11 @@ class ConfigTable(config: Config, mainFrame: MainFrame) extends BorderPanel:
   }
 
   model.addColumn("Name")
-  model.addColumn("Longitude")
   model.addColumn("Latitude")
+  model.addColumn("Longitude")
 
   for (rowId <- config.cities.indices)
-    model.addRow(Array[Any](config.cities(rowId).name, config.cities(rowId).longitude, config.cities(rowId).latitude))
+    model.addRow(Array[Any](config.cities(rowId).name, config.cities(rowId).latitude, config.cities(rowId).longitude))
 
   private val table = new Table(model)
   table.peer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
@@ -45,7 +45,7 @@ class ConfigTable(config: Config, mainFrame: MainFrame) extends BorderPanel:
             val duplicated = config.cities.count(aCity => aCity.name == city.name) > 0
             if !duplicated then
               config.cities = city :: config.cities
-              model.insertRow(0, Array[Any](city.name, city.longitude, city.latitude))
+              model.insertRow(0, Array[Any](city.name, city.latitude, city.longitude))
               Config.save(config)
               selectedRow = -1
             else

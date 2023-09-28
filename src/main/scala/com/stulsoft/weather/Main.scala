@@ -5,11 +5,11 @@
 package com.stulsoft.weather
 
 import com.stulsoft.common.ManifestInfo
-import com.stulsoft.weather.data.{City, Config}
-import com.stulsoft.weather.panel.{ConfigDialog, ConfigTable}
+import com.stulsoft.weather.data.Config
+import com.stulsoft.weather.panel.{ConfigTable, ForecastTable}
 
 import javax.swing.{JFrame, JOptionPane}
-import scala.swing.{Action, Dimension, Frame, MainFrame, Menu, MenuBar, MenuItem, SimpleSwingApplication}
+import scala.swing.*
 
 object Main extends SimpleSwingApplication:
   override def top: Frame = new MainFrame:
@@ -18,9 +18,30 @@ object Main extends SimpleSwingApplication:
     title = ManifestInfo("com.stulsoft", "weather").buildTitle("Weather")
 
     menuBar = new MenuBar {
+      contents += new Menu("Weather") {
+        contents += new MenuItem(Action("Forecast") {
+          val config = Config.load() match
+            case Right(result) =>
+              result match
+                case Some(conf) => conf
+                case None => Config(Nil)
+            case Left(error) =>
+              JOptionPane.showMessageDialog(new JFrame(), error, "Forecast", JOptionPane.ERROR_MESSAGE)
+              Config(Nil)
+          
+          val forecastTable = ForecastTable(config, theMainFrame)
+          new Frame {
+            title = "Forecast"
+            contents = forecastTable
+            size = new Dimension(600, 400)
+            centerOnScreen()
+          }.open()
+        })
+      }
+
       contents += new Menu("Configuration") {
         contents += new MenuItem(Action("Change configuration") {
-          var config = Config.load() match
+          val config = Config.load() match
             case Right(result) =>
               result match
                 case Some(conf) => conf
@@ -29,17 +50,13 @@ object Main extends SimpleSwingApplication:
               JOptionPane.showMessageDialog(new JFrame(), error, "Configuration", JOptionPane.ERROR_MESSAGE)
               Config(Nil)
 
-          var configTable= ConfigTable(config, theMainFrame)
-          new Frame{
+          val configTable = ConfigTable(config, theMainFrame)
+          new Frame {
             title = "Configuration"
             contents = configTable
-            size=new Dimension(600, 400)
+            size = new Dimension(600, 400)
             centerOnScreen()
           }.open()
-/*
-          val city = City("test", 12.34, 56.78)
-          ConfigDialog.showDialog(theMainFrame, city)
-*/
         })
       }
     }
