@@ -27,6 +27,7 @@ class ForecastTable(config: Config, mainFrame: MainFrame) extends BorderPanel:
 
   model.addColumn("City")
   model.addColumn("Status")
+  model.addColumn("Summary")
   model.addColumn("Max t")
   model.addColumn("Min t")
 
@@ -55,8 +56,9 @@ class ForecastTable(config: Config, mainFrame: MainFrame) extends BorderPanel:
             model.setValueAt(error, rowId, 1)
           case Right(response) =>
             model.setValueAt("Done", rowId, 1)
-            model.setValueAt(maxTemperature(response.daily), rowId, 2)
-            model.setValueAt(minTemperature(response.daily), rowId, 3)
+            model.setValueAt(response.daily.summary, rowId, 2)
+            model.setValueAt(maxTemperature(response.daily), rowId, 3)
+            model.setValueAt(minTemperature(response.daily), rowId, 4)
         }
       case Failure(exception) =>
         exception.printStackTrace()
