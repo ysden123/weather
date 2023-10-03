@@ -37,10 +37,8 @@ object Main extends SimpleSwingApplication:
             centerOnScreen()
           }.open()
         })
-      }
 
-      contents += new Menu("Configuration") {
-        contents += new MenuItem(Action("Change configuration") {
+        contents += new MenuItem(Action("Configuration") {
           val config = Config.load() match
             case Right(result) =>
               result match
