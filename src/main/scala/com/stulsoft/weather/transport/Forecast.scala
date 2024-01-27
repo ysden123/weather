@@ -17,11 +17,20 @@ object Forecast extends StrictLogging:
     if apiKey.isEmpty then
       Left("API key is missing")
     else
+      val url = s"https://api.pirateweather.net/forecast/${apiKey.get}/$latitude,$longitude?units=ca"
+
       try
-        val url = s"https://api.pirateweather.net/forecast/${apiKey.get}/$latitude,$longitude?units=ca"
-        val response: Response = read[Response](quickRequest.get(uri"$url").send().body)
-        Right(response)
+        val body = quickRequest.get(uri"$url").send().body
+        try
+          val response: Response = read[Response](body)
+          Right(response)
+        catch
+          case exception: Exception=>
+            logger.error("Can't parse the response: {}", body)
+            logger.error(exception.getMessage, exception)
+            Left(exception.getMessage)
       catch
-        case exception: Exception=>
+        case exception: Exception =>
+          logger.error("Can't get response from {}", url)
           logger.error(exception.getMessage, exception)
           Left(exception.getMessage)
