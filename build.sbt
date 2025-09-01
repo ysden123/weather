@@ -1,7 +1,7 @@
 import java.util.Calendar
 
-ThisBuild / scalaVersion := "3.3.1"
-ThisBuild / version := "0.2.1"
+ThisBuild / scalaVersion := "3.7.2"
+ThisBuild / version := "0.2.2"
 ThisBuild / organization := "com.stulsoft"
 ThisBuild / organizationName := "stulsoft"
 
@@ -10,15 +10,15 @@ lazy val root = (project in file("."))
     name := "weather",
     libraryDependencies += "com.stulsoft" %% "common" % "latest.integration",
     libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
-    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.12",
+    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.5.18",
 
     // toolkit
-    libraryDependencies += "org.scala-lang" %% "toolkit" % "0.2.0",
+    libraryDependencies += "org.scala-lang" %% "toolkit" % "0.7.0",
 
     // Swing
     libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
 
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % Test,
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
 
     scalacOptions ++= Seq(
       "-feature",

@@ -54,7 +54,7 @@ object ConfigDialog:
         )
       }
 
-      val buttonPanel: FlowPanel = new FlowPanel(FlowPanel.Alignment.Center)(Array(okButton, cancelButton): _*)
+      val buttonPanel: FlowPanel = new FlowPanel(FlowPanel.Alignment.Center)(Array(okButton, cancelButton)*)
 
       defaultButton = okButton
 
